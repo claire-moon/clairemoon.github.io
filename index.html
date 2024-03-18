@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elastic Words - Claire Moon</title>
+<style>
+    @font-face {
+        font-family: 'C64_Pro_Mono';
+        src: url('https://github.com/claire-moon/c64font/raw/main/fonts/C64_Pro_Mono-STYLE.eot'); /* IE9 Compat Modes */
+        src: url('https://github.com/claire-moon/c64font/raw/main/fonts/C64_Pro_Mono-STYLE.eot') format('embedded-opentype'), /* IE6-IE8 */
+             url('https://github.com/claire-moon/c64font/raw/main/fonts/C64_Pro_Mono-STYLE.woff2') format('woff2'), /* Super Modern Browsers */
+             url('https://github.com/claire-moon/c64font/raw/main/fonts/C64_Pro_Mono-STYLE.woff') format('woff'), /* Pretty Modern Browsers */
+             url('https://github.com/claire-moon/c64font/raw/main/fonts/C64_Pro_Mono-STYLE.ttf')  format('truetype'), /* Safari, Android, iOS */
+             url('https://github.com/claire-moon/c64font/raw/main/fonts/C64_Pro_Mono-STYLE.otf')  format('opentype'); /* Safari, Android, iOS */
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    body {
+        font-family: 'C64_Pro_Mono', monospace;
+        background-color: #0000af; /* Updated background color */
+        color: #FFFFFF; /* Updated text color */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+    }
+    pre {
+        margin: 0;
+        font-size: 12px; /* Adjust the font size as needed */
+        line-height: 1; /* Adjust line height for proper spacing of ASCII art */
+        white-space: pre-wrap;
+        word-break: keep-all;
+    }
+    h2 {
+        text-align: center;
+        margin: 0.5em 0;
+    }
+    nav {
+        text-align: center;
+        margin: 20px 0;
+    }
+    a {
+        color: #FFFFFF; /* Text color */
+        text-decoration: none;
+        margin: 0 10px;
+        text-transform: lowercase;
+        transition: font-weight 0.3s, text-decoration 0.3s; /* Smooth transition for highlight */
+    }
+    a:hover, a:focus {
+        text-decoration: underline;
+        font-weight: bold; /* Bold on hover */
+        color: #ffff00; /* Highlight color */
+    }
+    .signature {
+        font-style: italic;
+        font-size: 0.8em;
+        text-align: center; /* Centered text */
+        position: absolute;
+        bottom: 10px;
+        width: 100%; /* Full width */
+    }
+    .signature::after {
+        content: " ♥"; /* Heart symbol */
+    }
+</style>
+</head>
+<body>
+    <pre>
+███████ ██       █████  ███████ ████████ ██  ██████     ██     ██  ██████  ██████  ██████  ███████ 
+██      ██      ██   ██ ██         ██    ██ ██          ██     ██ ██    ██ ██   ██ ██   ██ ██      
+█████   ██      ███████ ███████    ██    ██ ██          ██  █  ██ ██    ██ ██████  ██   ██ ███████ 
+██      ██      ██   ██      ██    ██    ██ ██          ██ ███ ██ ██    ██ ██   ██ ██   ██      ██ 
+███████ ███████ ██   ██ ███████    ██    ██  ██████      ███ ███   ██████  ██   ██ ██████  ███████ 
+    </pre>
+    <h2>the collected works of claire moon</h2>
+    <nav>
+        <a href="info.html">info</a>
+        <a href="music.html">music</a>
+        <a href="video.html">video</a>
+        <a href="games.html">games</a>
+        <a href="writing.html">writing</a>
+        <a href="blog.html">blog</a>
+        <a href="donate.html">donate</a>
+    </nav>
+    <div class="signature">you found me</div>
+</body>
+</html>
