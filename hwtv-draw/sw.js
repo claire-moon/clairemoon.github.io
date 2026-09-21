@@ -1,4 +1,4 @@
-const CACHE_NAME = "hwtv-draw-v0-0-2-r2";
+const CACHE_NAME = "hwtv-draw-v0-0-2-inputfix2";
 
 self.addEventListener("install", () => {
   self.skipWaiting();
@@ -19,7 +19,7 @@ self.addEventListener("fetch", (event) => {
   }
   event.respondWith((async () => {
     try {
-      const response = await fetch(event.request);
+      const response = await fetch(new Request(event.request, { cache: "no-store" }));
       if (response.ok && new URL(event.request.url).origin === self.location.origin) {
         await (await caches.open(CACHE_NAME)).put(event.request, response.clone());
       }
