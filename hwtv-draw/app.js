@@ -1315,7 +1315,7 @@
     showStatus(restored ? "Project restored" : "Ready");
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("sw.js").catch(() => {});
+        navigator.serviceWorker.register("sw.js?v=0.0.2", { updateViaCache: "none" }).catch(() => {});
       });
     }
   }
