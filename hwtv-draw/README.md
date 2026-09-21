@@ -1,34 +1,26 @@
-# HWTV-DRAW
+# HWTV-DRAW v0.0.2
 
-HWTV-DRAW is an independently implemented, touch-first pixel-art editor designed to run as a static GitHub Pages application. It has no build step and no external runtime dependencies.
-
-## Live foundation
+HWTV-DRAW is an independently implemented Android-first pixel-animation editor that runs as a static GitHub Pages app.
 
 Open https://claire-moon.github.io/clairemoon.github.io/hwtv-draw/.
 
-## Current working slice
+## v0.0.2
 
-- Mobile-friendly Pencil, Eraser, and connected-region Fill tools
-- 16×16 through 64×64 RGBA canvases
-- Undo/redo, fast line interpolation, grid and zoom controls
-- Device-local persistence through localStorage
-- Transparent PNG export
-- Android-friendly install/offline shell through a web manifest, app icon, and service worker
+- Material-style dark interface with an icon shelf and always-reachable right drawer
+- Portrait overlay drawer and a permanent landscape inspector
+- One-finger drawing; two-finger pinch-to-zoom and pan; a dedicated hand tool
+- Editable width and height, canvas presets, grid, fullscreen, and FPS settings
+- Frames, timeline thumbnails, playback, duplicate/delete, and prior/next-frame onion skinning
+- Rectangle, ellipse, lasso, and magic-wand selection modes with replace/add/subtract/intersect
+- PNG, WEBP, horizontal sprite-sheet PNG, and editable project JSON exports
+- Local project persistence and migration from the v0.0.1 single-frame save
 
-## Architecture decision
+## License boundary
 
-The current Aseprite source tree is under an EULA that prohibits public redistribution and limits source modification to personal use or upstream contributions. Do not put Aseprite source code, assets, or compiled binaries into this public project unless Igara Studio grants a written redistribution license.
+Do not add current Aseprite source code, assets, or compiled binaries to this public project without written redistribution permission from Igara Studio. The source EULA restricts public redistribution and limits modifications to personal use or upstream contribution.
 
-For a legal full-feature foundation there are two paths:
+For a lawful full compatibility project, either obtain an explicit commercial redistribution/WebAssembly license from Igara Studio, or base the work on LibreSprite and release the entire derivative under GPLv2. Until then HWTV-DRAW remains clean-room code.
 
-1. Obtain an explicit commercial redistribution/WebAssembly license from Igara Studio, then build a separately licensed Emscripten port.
-2. Base a GPLv2 project on LibreSprite's independently maintained GPL-era fork, retaining GPLv2 notices and releasing the whole derived application under GPLv2.
+## Next engine work
 
-Until that decision is made, HWTV-DRAW remains clean-room code so it can grow independently.
-
-## Roadmap
-
-1. Add layer stack and multi-frame timeline data structures.
-2. Move the pixel/document engine into C/C++ compiled with Emscripten/WASM while keeping touch UI in TypeScript.
-3. Add import/export adapters, then brush, selection, transform, palette, and animation tooling.
-4. Establish test fixtures and compatibility targets before describing the editor as feature-equivalent to another product.
+Layer stacks, transforms, importers, animation timing per frame, non-destructive selection operations, pressure input, and a C/C++ WebAssembly document engine are the next technical milestones.
