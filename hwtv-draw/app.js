@@ -51,6 +51,8 @@
     redo: [],
     pointers: new Map(),
     interaction: null,
+    lastPointerEventAt: 0,
+    mouseFallbackActive: false,
     playing: false,
     playTimer: 0,
     statusTimer: 0
@@ -245,6 +247,8 @@
     updateToolControls();
     if (tool === "select") {
       setPanel("selection");
+    } else {
+      closeDrawer();
     }
   }
 
@@ -495,6 +499,12 @@
       x: clamp(x, 0, state.project.width - 1),
       y: clamp(y, 0, state.project.height - 1)
     };
+  }
+
+  function eventIsOnCanvas(event) {
+    const rectangle = canvas.getBoundingClientRect();
+    return event.clientX >= rectangle.left && event.clientX <= rectangle.right &&
+      event.clientY >= rectangle.top && event.clientY <= rectangle.bottom;
   }
 
   function pixelsMatch(pixels, offset, rgba) {
@@ -774,8 +784,21 @@
   }
 
   function onPointerDown(event) {
+    if (!event.isFallbackMouse) {
+      state.lastPointerEventAt = performance.now();
+    }
+    if (event.pointerType === "mouse" && event.button !== 0) {
+      return;
+    }
+    if (state.tool !== "pan" && !eventIsOnCanvas(event)) {
+      return;
+    }
     event.preventDefault();
-    canvas.setPointerCapture(event.pointerId);
+    try {
+      stage.setPointerCapture(event.pointerId);
+    } catch (error) {
+      /* The drawing logic still works when a browser declines pointer capture. */
+    }
     state.pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
     if (state.pointers.size >= 2) {
       startPinch();
@@ -848,6 +871,9 @@
   }
 
   function onPointerMove(event) {
+    if (!event.isFallbackMouse) {
+      state.lastPointerEventAt = performance.now();
+    }
     if (state.pointers.has(event.pointerId)) {
       state.pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
     }
@@ -891,6 +917,9 @@
   }
 
   function onPointerEnd(event) {
+    if (!event.isFallbackMouse) {
+      state.lastPointerEventAt = performance.now();
+    }
     const interaction = state.interaction;
     state.pointers.delete(event.pointerId);
     if (interaction && interaction.type === "pinch") {
@@ -902,9 +931,55 @@
       finishInteraction();
       render();
     }
-    if (canvas.hasPointerCapture(event.pointerId)) {
-      canvas.releasePointerCapture(event.pointerId);
+    if (stage.hasPointerCapture(event.pointerId)) {
+      stage.releasePointerCapture(event.pointerId);
     }
+  }
+
+  function onLostPointerCapture(event) {
+    if (!state.pointers.has(event.pointerId)) {
+      return;
+    }
+    onPointerEnd(event);
+  }
+
+  function mouseEventAsPointer(event) {
+    return {
+      isFallbackMouse: true,
+      pointerId: 1,
+      pointerType: "mouse",
+      button: event.button,
+      clientX: event.clientX,
+      clientY: event.clientY,
+      preventDefault: () => event.preventDefault()
+    };
+  }
+
+  function shouldUseMouseFallback() {
+    return performance.now() - state.lastPointerEventAt > 250;
+  }
+
+  function onMouseDown(event) {
+    if (event.button !== 0 || !shouldUseMouseFallback()) {
+      return;
+    }
+    state.mouseFallbackActive = true;
+    onPointerDown(mouseEventAsPointer(event));
+  }
+
+  function onMouseMove(event) {
+    if (!state.mouseFallbackActive) {
+      return;
+    }
+    onPointerMove(mouseEventAsPointer(event));
+  }
+
+  function onMouseUp(event) {
+    if (!state.mouseFallbackActive) {
+      return;
+    }
+    onPointerEnd(mouseEventAsPointer(event));
+    state.mouseFallbackActive = false;
   }
 
   function resizeProject(width, height) {
@@ -1187,7 +1262,10 @@
       button.style.background = color;
       button.setAttribute("aria-label", "Use " + color);
       button.title = color;
-      button.addEventListener("click", () => setColor(color));
+      button.addEventListener("click", () => {
+        setColor(color);
+        closeDrawer();
+      });
       ui.palette.appendChild(button);
     });
   }
@@ -1222,6 +1300,7 @@
     });
 
     ui.colorPicker.addEventListener("input", () => setColor(ui.colorPicker.value));
+    ui.colorPicker.addEventListener("change", () => closeDrawer());
     ui.drawerScrim.addEventListener("click", closeDrawer);
     document.getElementById("undo-button").addEventListener("click", undo);
     document.getElementById("redo-button").addEventListener("click", redo);
@@ -1265,10 +1344,15 @@
     document.getElementById("export-sheet").addEventListener("click", exportSheet);
     document.getElementById("export-project").addEventListener("click", exportProject);
 
-    canvas.addEventListener("pointerdown", onPointerDown);
-    canvas.addEventListener("pointermove", onPointerMove);
-    canvas.addEventListener("pointerup", onPointerEnd);
-    canvas.addEventListener("pointercancel", onPointerEnd);
+    stage.addEventListener("pointerdown", onPointerDown);
+    stage.addEventListener("pointermove", onPointerMove);
+    stage.addEventListener("pointerup", onPointerEnd);
+    stage.addEventListener("pointercancel", onPointerEnd);
+    stage.addEventListener("lostpointercapture", onLostPointerCapture);
+    stage.addEventListener("mousedown", onMouseDown);
+    stage.addEventListener("mousemove", onMouseMove);
+    stage.addEventListener("mouseup", onMouseUp);
+    window.addEventListener("mouseup", onMouseUp);
     canvas.addEventListener("contextmenu", (event) => event.preventDefault());
     window.addEventListener("resize", () => {
       if (isLandscapeLayout()) {
