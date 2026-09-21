@@ -221,7 +221,7 @@ input:focus-visible {
 
 .tool-shelf {
   position: fixed;
-  z-index: 22;
+  z-index: 27;
   right: calc(var(--rail-size) + 10px);
   bottom: calc(var(--timeline-height) + 12px);
   display: flex;
