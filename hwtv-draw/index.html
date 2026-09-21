@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#17191f">
+  <meta name="description" content="HWTV-DRAW is a touch-first pixel-art workspace that runs entirely in your browser.">
+  <title>HWTV-DRAW — Touch Pixel Lab</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <a class="home-link" href="../" aria-label="Return to Claire Moon home page">← HOME</a>
+    <div>
+      <p class="eyebrow">HWTV SYSTEMS</p>
+      <h1>HWTV-DRAW <span>TOUCH PIXEL LAB</span></h1>
+    </div>
+    <output id="status" class="status" aria-live="polite">Ready</output>
+  </header>
+
+  <main class="app-shell">
+    <section class="workbench" aria-label="Pixel drawing workspace">
+      <div id="canvas-stage" class="canvas-stage">
+        <canvas id="draw-canvas" width="512" height="512" aria-label="Pixel canvas"></canvas>
+      </div>
+
+      <div class="canvas-meta">
+        <span id="coordinate-readout">X: --  Y: --</span>
+        <span id="document-readout">32 × 32 · FRAME 1 / 1</span>
+      </div>
+
+      <div class="tool-strip" role="toolbar" aria-label="Drawing tools">
+        <button class="tool-button is-active" type="button" data-tool="pencil" aria-pressed="true">
+          <span class="tool-glyph">✎</span><span>Pencil</span>
+        </button>
+        <button class="tool-button" type="button" data-tool="eraser" aria-pressed="false">
+          <span class="tool-glyph">⌫</span><span>Eraser</span>
+        </button>
+        <button class="tool-button" type="button" data-tool="fill" aria-pressed="false">
+          <span class="tool-glyph">▧</span><span>Fill</span>
+        </button>
+        <span class="tool-divider" aria-hidden="true"></span>
+        <button class="tool-button" type="button" data-action="undo" aria-label="Undo last change">
+          <span class="tool-glyph">↶</span><span>Undo</span>
+        </button>
+        <button class="tool-button" type="button" data-action="redo" aria-label="Redo last change">
+          <span class="tool-glyph">↷</span><span>Redo</span>
+        </button>
+        <button class="tool-button" type="button" data-action="clear">
+          <span class="tool-glyph">×</span><span>Clear</span>
+        </button>
+        <button class="tool-button export" type="button" data-action="export">
+          <span class="tool-glyph">↓</span><span>PNG</span>
+        </button>
+      </div>
+
+      <p class="gesture-note">Draw with one finger. Use the <strong>+</strong> and <strong>−</strong> buttons to change pixel scale. Your work stays on this device until you export it.</p>
+    </section>
+
+    <aside class="side-panel" aria-label="Drawing controls">
+      <section class="panel-section">
+        <div class="section-title-row">
+          <h2>COLOR</h2>
+          <output id="color-readout">#202020</output>
+        </div>
+        <div class="color-row">
+          <label class="color-picker-label" for="color-picker">Choose drawing color</label>
+          <input id="color-picker" type="color" value="#202020">
+          <div id="color-preview" class="color-preview" aria-hidden="true"></div>
+        </div>
+        <div id="palette" class="palette" role="group" aria-label="Preset colors"></div>
+      </section>
+
+      <section class="panel-section">
+        <h2>CANVAS</h2>
+        <label class="field-label" for="canvas-size">Resolution</label>
+        <select id="canvas-size">
+          <option value="16">16 × 16</option>
+          <option value="32" selected>32 × 32</option>
+          <option value="48">48 × 48</option>
+          <option value="64">64 × 64</option>
+        </select>
+        <div class="control-grid">
+          <button type="button" class="wide-control" id="grid-toggle" aria-pressed="true">Grid: On</button>
+          <button type="button" class="square-control" id="zoom-out" aria-label="Zoom out">−</button>
+          <output id="zoom-readout" class="zoom-readout">1×</output>
+          <button type="button" class="square-control" id="zoom-in" aria-label="Zoom in">+</button>
+        </div>
+      </section>
+
+      <section class="panel-section">
+        <h2>LAYERS</h2>
+        <div class="layer-row is-selected">
+          <span class="checker-mini" aria-hidden="true"></span>
+          <span>Layer 1</span>
+          <span class="layer-state">VISIBLE</span>
+        </div>
+        <p class="phase-note">Single-layer drawing is live now. Animation, layers, file import, and advanced tools are the next engine milestones.</p>
+      </section>
+
+      <section class="panel-section tips">
+        <h2>TOUCH SHORTCUTS</h2>
+        <ul>
+          <li><strong>Pencil</strong> draws continuous pixel lines.</li>
+          <li><strong>Fill</strong> replaces the connected color region.</li>
+          <li><strong>PNG</strong> exports only the artwork — never the grid.</li>
+        </ul>
+      </section>
+    </aside>
+  </main>
+
+  <noscript>HWTV-DRAW needs JavaScript enabled to draw and export pixel art.</noscript>
+  <script src="app.js"></script>
+</body>
+</html>
