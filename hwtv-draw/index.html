@@ -2,115 +2,158 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#17191f">
-  <meta name="description" content="HWTV-DRAW is a touch-first pixel-art workspace that runs entirely in your browser.">
-  <title>HWTV-DRAW — Touch Pixel Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#121318">
+  <meta name="description" content="HWTV-DRAW is an Android-first pixel animation workspace.">
+  <title>HWTV-DRAW</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="app-header">
-    <a class="home-link" href="../" aria-label="Return to Claire Moon home page">← HOME</a>
-    <div>
-      <p class="eyebrow">HWTV SYSTEMS</p>
-      <h1>HWTV-DRAW <span>TOUCH PIXEL LAB</span></h1>
+  <svg class="icon-sprite" aria-hidden="true">
+    <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25Zm17.71-10.04a1 1 0 0 0 0-1.42l-2.5-2.5a1 1 0 0 0-1.42 0l-1.96 1.96 3.75 3.75 2.13-1.79Z"/></symbol>
+    <symbol id="i-eraser" viewBox="0 0 24 24"><path d="m16.24 3.56-12.68 12.68L8.32 21H17v-2H9.15l-3.46-3.46L13.41 7.8l3.46 3.46-4.18 4.18 1.42 1.42 5.6-5.6a2 2 0 0 0 0-2.83l-2.05-2.05a1 1 0 0 0-1.42 0l-1.41 1.41-1.42-1.42 1.41-1.41a1 1 0 0 0 0-1.4l-1.76-1.76a1 1 0 0 0-1.42 0l-1.41 1.41 1.42 1.42-7.1 7.1A2 2 0 0 0 3.56 16.24l4.2 4.2a2 2 0 0 0 1.42.56h7.65v-2H9.18l-3.2-3.2 9.26-9.26 1 1-7.62 7.62 1.42 1.42 8.12-8.12a1 1 0 0 0 0-1.42l-1.92-1.92Z"/></symbol>
+    <symbol id="i-fill" viewBox="0 0 24 24"><path d="m19 11-6-6-8 8 6 6 8-8Zm-8 5.17L7.83 13 13 7.83 16.17 11 11 16.17ZM19 15c-1.33 0-4 2-4 4a4 4 0 0 0 8 0c0-2-2.67-4-4-4Zm0 6a2 2 0 0 1-2-2c0-.63.88-1.76 2-2.69 1.12.93 2 2.06 2 2.69a2 2 0 0 1-2 2Z"/></symbol>
+    <symbol id="i-picker" viewBox="0 0 24 24"><path d="m20.71 5.04-1.75-1.75a1 1 0 0 0-1.42 0l-2.1 2.1-1.38-1.38-1.42 1.42 1.38 1.38-6.56 6.56a3 3 0 0 0-.75 1.25L6.1 18.2l-2.8 2.8 1.42 1.42 2.8-2.8 3.58-.61a3 3 0 0 0 1.25-.75l6.56-6.56 1.38 1.38 1.42-1.42-1.38-1.38 2.1-2.1a1 1 0 0 0 0-1.42Zm-9.78 11.8c-.13.13-.3.23-.49.26l-2.32.4.4-2.32c.03-.19.13-.36.26-.49l6.7-6.7 2.15 2.15-6.7 6.7Z"/></symbol>
+    <symbol id="i-select" viewBox="0 0 24 24"><path d="M4 4h5V2H4a2 2 0 0 0-2 2v5h2V4Zm11-2v2h5v5h2V4a2 2 0 0 0-2-2h-5Zm5 13v5h-5v2h5a2 2 0 0 0 2-2v-5h-2ZM4 15H2v5a2 2 0 0 0 2 2h5v-2H4v-5Zm2-8h12v10H6V7Zm2 2v6h8V9H8Z"/></symbol>
+    <symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V8a2 2 0 0 0-3.5-1.32A2 2 0 0 0 11 6.5V5a2 2 0 0 0-4 0v8.09l-1.2-1.2a2 2 0 0 0-2.83 2.83l4.6 4.6A6 6 0 0 0 11.8 21H16a5 5 0 0 0 5-5v-5a2 2 0 0 0-3-1.73ZM19 16a3 3 0 0 1-3 3h-4.2a4 4 0 0 1-2.83-1.17l-4.6-4.6a.5.5 0 0 1 .7-.7L8 15.46V5a.5.5 0 0 1 1 0v7h2V6.5a.5.5 0 0 1 1 0V12h2V8a.5.5 0 0 1 1 0v4h2v-1a.5.5 0 0 1 1 0v5Z"/></symbol>
+    <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18h1.5a1.5 1.5 0 0 0 0-3H12a1.5 1.5 0 0 1 0-3h1a8 8 0 0 0 7.8-6.2A9 9 0 0 0 12 3Zm-5 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm3-4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm3 4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Zm-7 9.5 7 3.89 7-3.89V15l-7 3.89L5 15v-2.5Zm0 5 7 3.89 7-3.89V18l-7 3.89L5 18v-.5Z"/></symbol>
+    <symbol id="i-tune" viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3Zm0-12v2h10V5H3Zm10 16v-2h8v-2h-8v-2h-2v6h2Zm-6-8v-2H3v2h4Zm14-2h-8v2h8v-2Zm-6-4V5h-2v6h2Zm-4 4v2h2v-2h-2Z"/></symbol>
+    <symbol id="i-export" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7ZM5 18v2h14v-2H5Z"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M12.5 8c-2.65 0-5.03 1.08-6.75 2.82L3 8v7h7l-2.83-2.83A7.47 7.47 0 0 1 12.5 10c3.54 0 6.5 2.31 7.5 5.5.32-1.03.5-2.12.5-3.25C20.5 9.03 16.92 6 12.5 6v2Z"/></symbol>
+    <symbol id="i-redo" viewBox="0 0 24 24"><path d="M11.5 8c2.65 0 5.03 1.08 6.75 2.82L21 8v7h-7l2.83-2.83A7.47 7.47 0 0 0 11.5 10C7.96 10 5 12.31 4 15.5a10.7 10.7 0 0 1-.5-3.25C3.5 9.03 7.08 6 11.5 6v2Z"/></symbol>
+    <symbol id="i-fullscreen" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3Zm-2-4h2V7h3V5H5v5Zm12 7h-3v2h5v-5h-2v3Zm0-12h-3v2h3v3h2V5h-2Z"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6v-2Z"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><path d="M16 1H4a2 2 0 0 0-2 2v12h2V3h12V1Zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Zm0 16H8V7h11v14Z"/></symbol>
+    <symbol id="i-delete" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12ZM8 9h8v10H8V9Zm7.5-5-1-1h-5l-1 1H5v2h14V4h-3.5Z"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5Z"/></symbol>
+    <symbol id="i-prev" viewBox="0 0 24 24"><path d="M6 6h2v12H6V6Zm12 0-8 6 8 6V6Z"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="M16 6h2v12h-2V6ZM6 6v12l8-6-8-6Z"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7Z"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m18.3 5.71-1.41-1.42L12 9.17 7.11 4.29 5.7 5.71 10.59 10.6 5.7 15.49l1.41 1.42L12 12.01l4.89 4.9 1.41-1.42-4.89-4.89 4.89-4.89Z"/></symbol>
+  </svg>
+
+  <header class="top-app-bar">
+    <button class="icon-button" id="undo-button" type="button" aria-label="Undo" title="Undo">
+      <svg class="icon"><use href="#i-undo"></use></svg>
+    </button>
+    <button class="icon-button" id="redo-button" type="button" aria-label="Redo" title="Redo">
+      <svg class="icon"><use href="#i-redo"></use></svg>
+    </button>
+    <div class="brand" aria-label="HWTV-DRAW">
+      <span>HWTV</span><strong>DRAW</strong>
     </div>
-    <output id="status" class="status" aria-live="polite">Ready</output>
+    <output id="project-readout" class="project-readout" aria-label="Project dimensions">32 × 32</output>
+    <button class="icon-button" id="fullscreen-button" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">
+      <svg class="icon"><use href="#i-fullscreen"></use></svg>
+    </button>
   </header>
 
-  <main class="app-shell">
-    <section class="workbench" aria-label="Pixel drawing workspace">
-      <div id="canvas-stage" class="canvas-stage">
-        <canvas id="draw-canvas" width="512" height="512" aria-label="Pixel canvas"></canvas>
-      </div>
-
-      <div class="canvas-meta">
-        <span id="coordinate-readout">X: --  Y: --</span>
-        <span id="document-readout">32 × 32 · FRAME 1 / 1</span>
-      </div>
-
-      <div class="tool-strip" role="toolbar" aria-label="Drawing tools">
-        <button class="tool-button is-active" type="button" data-tool="pencil" aria-pressed="true">
-          <span class="tool-glyph">✎</span><span>Pencil</span>
-        </button>
-        <button class="tool-button" type="button" data-tool="eraser" aria-pressed="false">
-          <span class="tool-glyph">⌫</span><span>Eraser</span>
-        </button>
-        <button class="tool-button" type="button" data-tool="fill" aria-pressed="false">
-          <span class="tool-glyph">▧</span><span>Fill</span>
-        </button>
-        <span class="tool-divider" aria-hidden="true"></span>
-        <button class="tool-button" type="button" data-action="undo" aria-label="Undo last change">
-          <span class="tool-glyph">↶</span><span>Undo</span>
-        </button>
-        <button class="tool-button" type="button" data-action="redo" aria-label="Redo last change">
-          <span class="tool-glyph">↷</span><span>Redo</span>
-        </button>
-        <button class="tool-button" type="button" data-action="clear">
-          <span class="tool-glyph">×</span><span>Clear</span>
-        </button>
-        <button class="tool-button export" type="button" data-action="export">
-          <span class="tool-glyph">↓</span><span>PNG</span>
-        </button>
-      </div>
-
-      <p class="gesture-note">Draw with one finger. Use the <strong>+</strong> and <strong>−</strong> buttons to change pixel scale. Your work stays on this device until you export it.</p>
+  <main id="app-root" class="editor-shell">
+    <section id="canvas-stage" class="canvas-stage" aria-label="Pixel canvas workspace">
+      <canvas id="draw-canvas" width="512" height="512" aria-label="Pixel drawing canvas"></canvas>
+      <output id="canvas-status" class="canvas-status" aria-live="polite"></output>
     </section>
 
-    <aside class="side-panel" aria-label="Drawing controls">
-      <section class="panel-section">
-        <div class="section-title-row">
-          <h2>COLOR</h2>
-          <output id="color-readout">#202020</output>
-        </div>
-        <div class="color-row">
-          <label class="color-picker-label" for="color-picker">Choose drawing color</label>
-          <input id="color-picker" type="color" value="#202020">
-          <div id="color-preview" class="color-preview" aria-hidden="true"></div>
-        </div>
-        <div id="palette" class="palette" role="group" aria-label="Preset colors"></div>
-      </section>
+    <nav class="tool-shelf" aria-label="Drawing tools">
+      <button class="tool-button is-active" type="button" data-tool="pencil" aria-label="Pencil" title="Pencil" aria-pressed="true"><svg class="icon"><use href="#i-pencil"></use></svg></button>
+      <button class="tool-button" type="button" data-tool="eraser" aria-label="Eraser" title="Eraser" aria-pressed="false"><svg class="icon"><use href="#i-eraser"></use></svg></button>
+      <button class="tool-button" type="button" data-tool="fill" aria-label="Fill" title="Fill" aria-pressed="false"><svg class="icon"><use href="#i-fill"></use></svg></button>
+      <button class="tool-button" type="button" data-tool="picker" aria-label="Color picker" title="Color picker" aria-pressed="false"><svg class="icon"><use href="#i-picker"></use></svg></button>
+      <button class="tool-button" type="button" data-tool="select" aria-label="Selection" title="Selection" aria-pressed="false"><svg class="icon"><use href="#i-select"></use></svg></button>
+      <button class="tool-button" type="button" data-tool="pan" aria-label="Pan canvas" title="Pan canvas" aria-pressed="false"><svg class="icon"><use href="#i-hand"></use></svg></button>
+    </nav>
 
-      <section class="panel-section">
-        <h2>CANVAS</h2>
-        <label class="field-label" for="canvas-size">Resolution</label>
-        <select id="canvas-size">
-          <option value="16">16 × 16</option>
-          <option value="32" selected>32 × 32</option>
-          <option value="48">48 × 48</option>
-          <option value="64">64 × 64</option>
-        </select>
-        <div class="control-grid">
-          <button type="button" class="wide-control" id="grid-toggle" aria-pressed="true">Grid: On</button>
-          <button type="button" class="square-control" id="zoom-out" aria-label="Zoom out">−</button>
-          <output id="zoom-readout" class="zoom-readout">1×</output>
-          <button type="button" class="square-control" id="zoom-in" aria-label="Zoom in">+</button>
-        </div>
-      </section>
+    <div id="drawer-scrim" class="drawer-scrim" aria-hidden="true"></div>
+    <aside id="right-drawer" class="right-drawer" aria-label="Editor drawers">
+      <nav class="drawer-rail" aria-label="Drawer categories">
+        <button class="drawer-tab is-active" type="button" data-panel="color" aria-label="Color drawer" title="Color"><svg class="icon"><use href="#i-palette"></use></svg></button>
+        <button class="drawer-tab" type="button" data-panel="selection" aria-label="Selection drawer" title="Selection"><svg class="icon"><use href="#i-select"></use></svg></button>
+        <button class="drawer-tab" type="button" data-panel="frames" aria-label="Frames drawer" title="Frames"><svg class="icon"><use href="#i-layers"></use></svg></button>
+        <button class="drawer-tab" type="button" data-panel="project" aria-label="Project drawer" title="Project"><svg class="icon"><use href="#i-tune"></use></svg></button>
+        <button class="drawer-tab" type="button" data-panel="export" aria-label="Export drawer" title="Export"><svg class="icon"><use href="#i-export"></use></svg></button>
+      </nav>
 
-      <section class="panel-section">
-        <h2>LAYERS</h2>
-        <div class="layer-row is-selected">
-          <span class="checker-mini" aria-hidden="true"></span>
-          <span>Layer 1</span>
-          <span class="layer-state">VISIBLE</span>
-        </div>
-        <p class="phase-note">Single-layer drawing is live now. Animation, layers, file import, and advanced tools are the next engine milestones.</p>
-      </section>
+      <div class="drawer-content">
+        <section class="drawer-panel is-active" data-panel-content="color" aria-label="Color">
+          <div class="drawer-title"><h2>Color</h2><output id="color-readout">#202020</output></div>
+          <label class="color-control" for="color-picker">
+            <span id="color-preview" aria-hidden="true"></span>
+            <input id="color-picker" type="color" value="#202020" aria-label="Choose drawing color">
+          </label>
+          <div id="palette" class="palette" role="group" aria-label="Color palette"></div>
+        </section>
 
-      <section class="panel-section tips">
-        <h2>TOUCH SHORTCUTS</h2>
-        <ul>
-          <li><strong>Pencil</strong> draws continuous pixel lines.</li>
-          <li><strong>Fill</strong> replaces the connected color region.</li>
-          <li><strong>PNG</strong> exports only the artwork — never the grid.</li>
-        </ul>
-      </section>
+        <section class="drawer-panel" data-panel-content="selection" aria-label="Selection">
+          <div class="drawer-title"><h2>Select</h2><button class="mini-icon-button" id="clear-selection" type="button" aria-label="Clear selection" title="Clear selection"><svg class="icon"><use href="#i-close"></use></svg></button></div>
+          <div class="choice-grid" id="selection-shapes" role="group" aria-label="Selection shape">
+            <button class="choice-button is-active" data-selection-shape="rect" type="button" aria-label="Rectangle selection" title="Rectangle"><svg class="icon"><use href="#i-select"></use></svg></button>
+            <button class="choice-button" data-selection-shape="ellipse" type="button" aria-label="Ellipse selection" title="Ellipse"><span class="shape-ellipse"></span></button>
+            <button class="choice-button" data-selection-shape="lasso" type="button" aria-label="Lasso selection" title="Lasso"><span class="shape-lasso">⌁</span></button>
+            <button class="choice-button" data-selection-shape="wand" type="button" aria-label="Magic wand selection" title="Magic wand"><span class="shape-wand">✦</span></button>
+          </div>
+          <div class="choice-grid compact" id="selection-modes" role="group" aria-label="Selection mode">
+            <button class="choice-button is-active" data-selection-mode="replace" type="button" aria-label="Replace selection" title="Replace">▣</button>
+            <button class="choice-button" data-selection-mode="add" type="button" aria-label="Add to selection" title="Add">⊞</button>
+            <button class="choice-button" data-selection-mode="subtract" type="button" aria-label="Subtract from selection" title="Subtract">⊟</button>
+            <button class="choice-button" data-selection-mode="intersect" type="button" aria-label="Intersect selection" title="Intersect">▧</button>
+          </div>
+        </section>
+
+        <section class="drawer-panel" data-panel-content="frames" aria-label="Frames">
+          <div class="drawer-title"><h2>Frames</h2><output id="frame-readout">1 / 1</output></div>
+          <div class="drawer-action-row">
+            <button class="action-button" id="frame-create" type="button" aria-label="Add blank frame" title="Add blank frame"><svg class="icon"><use href="#i-plus"></use></svg></button>
+            <button class="action-button" id="frame-duplicate" type="button" aria-label="Duplicate frame" title="Duplicate frame"><svg class="icon"><use href="#i-copy"></use></svg></button>
+            <button class="action-button destructive" id="frame-delete" type="button" aria-label="Delete frame" title="Delete frame"><svg class="icon"><use href="#i-delete"></use></svg></button>
+          </div>
+          <label class="switch-row" for="onion-toggle"><span>Onion skin</span><button id="onion-toggle" class="switch-button" type="button" aria-pressed="true"><span></span></button></label>
+        </section>
+
+        <section class="drawer-panel" data-panel-content="project" aria-label="Project">
+          <div class="drawer-title"><h2>Project</h2><button class="mini-icon-button" id="reset-view" type="button" aria-label="Reset canvas view" title="Reset view"><svg class="icon"><use href="#i-reset"></use></svg></button></div>
+          <div class="size-row">
+            <label>W<input id="project-width" type="number" min="8" max="512" value="32" inputmode="numeric"></label>
+            <span>×</span>
+            <label>H<input id="project-height" type="number" min="8" max="512" value="32" inputmode="numeric"></label>
+            <button class="mini-icon-button filled" id="apply-size" type="button" aria-label="Apply canvas dimensions" title="Apply dimensions">✓</button>
+          </div>
+          <div class="preset-grid" role="group" aria-label="Canvas presets">
+            <button type="button" data-preset="16x16">16</button>
+            <button type="button" data-preset="32x32">32</button>
+            <button type="button" data-preset="64x64">64</button>
+            <button type="button" data-preset="128x128">128</button>
+            <button type="button" data-preset="160x144">GB</button>
+            <button type="button" data-preset="320x180">16:9</button>
+          </div>
+          <label class="numeric-row" for="fps-input"><span>FPS</span><input id="fps-input" type="number" min="1" max="60" value="12" inputmode="numeric"></label>
+          <label class="switch-row" for="grid-toggle"><span>Grid</span><button id="grid-toggle" class="switch-button" type="button" aria-pressed="true"><span></span></button></label>
+        </section>
+
+        <section class="drawer-panel" data-panel-content="export" aria-label="Export">
+          <div class="drawer-title"><h2>Export</h2></div>
+          <div class="export-grid">
+            <button type="button" id="export-png">PNG</button>
+            <button type="button" id="export-webp">WEBP</button>
+            <button type="button" id="export-sheet">SHEET</button>
+            <button type="button" id="export-project">PROJECT</button>
+          </div>
+        </section>
+      </div>
     </aside>
+
+    <footer class="timeline" aria-label="Animation timeline">
+      <button class="icon-button" id="play-button" type="button" aria-label="Play animation" title="Play animation"><svg class="icon"><use href="#i-play"></use></svg></button>
+      <button class="icon-button" id="previous-frame" type="button" aria-label="Previous frame" title="Previous frame"><svg class="icon"><use href="#i-prev"></use></svg></button>
+      <div id="frame-strip" class="frame-strip" role="list" aria-label="Frames"></div>
+      <button class="icon-button" id="next-frame" type="button" aria-label="Next frame" title="Next frame"><svg class="icon"><use href="#i-next"></use></svg></button>
+      <button class="icon-button filled" id="add-frame" type="button" aria-label="Add frame" title="Add frame"><svg class="icon"><use href="#i-plus"></use></svg></button>
+    </footer>
   </main>
 
-  <noscript>HWTV-DRAW needs JavaScript enabled to draw and export pixel art.</noscript>
+  <output id="status" class="sr-only" aria-live="polite">Ready</output>
+  <noscript>HWTV-DRAW needs JavaScript enabled.</noscript>
   <script src="app.js"></script>
 </body>
 </html>
