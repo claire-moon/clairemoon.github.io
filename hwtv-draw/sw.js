@@ -1,10 +1,11 @@
-const CACHE_NAME = "hwtv-draw-v1";
+const CACHE_NAME = "hwtv-draw-v2";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
-  "./manifest.webmanifest"
+  "./manifest.webmanifest",
+  "./icon.svg"
 ];
 
 self.addEventListener("install", (event) => {
