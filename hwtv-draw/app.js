@@ -52,6 +52,7 @@
     pointers: new Map(),
     interaction: null,
     lastPointerEventAt: 0,
+    lastCanvasInteractionAt: 0,
     mouseFallbackActive: false,
     playing: false,
     playTimer: 0,
@@ -794,6 +795,7 @@
       return;
     }
     event.preventDefault();
+    state.lastCanvasInteractionAt = performance.now();
     try {
       stage.setPointerCapture(event.pointerId);
     } catch (error) {
@@ -980,6 +982,24 @@
     }
     onPointerEnd(mouseEventAsPointer(event));
     state.mouseFallbackActive = false;
+  }
+
+  function onCanvasClick(event) {
+    if (performance.now() - state.lastCanvasInteractionAt < 350 || !eventIsOnCanvas(event)) {
+      return;
+    }
+    if (state.tool !== "pencil" && state.tool !== "eraser") {
+      return;
+    }
+    event.preventDefault();
+    const point = pointFromEvent(event);
+    const before = snapshotProject();
+    const rgba = state.tool === "eraser" ? [0, 0, 0, 0] : rgbaFromHex(state.color);
+    if (drawLine(point, point, rgba)) {
+      pushHistory(before);
+      persist();
+      render();
+    }
   }
 
   function resizeProject(width, height) {
@@ -1352,6 +1372,7 @@
     stage.addEventListener("mousedown", onMouseDown);
     stage.addEventListener("mousemove", onMouseMove);
     stage.addEventListener("mouseup", onMouseUp);
+    stage.addEventListener("click", onCanvasClick);
     window.addEventListener("mouseup", onMouseUp);
     canvas.addEventListener("contextmenu", (event) => event.preventDefault());
     window.addEventListener("resize", () => {
