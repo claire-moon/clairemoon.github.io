@@ -13,7 +13,7 @@ Open https://claire-moon.github.io/clairemoon.github.io/hwtv-draw/.
 - Undo/redo, fast line interpolation, grid and zoom controls
 - Device-local persistence through localStorage
 - Transparent PNG export
-- Installable/offline-capable shell through a web manifest and service worker
+- Android-friendly install/offline shell through a web manifest, app icon, and service worker
 
 ## Architecture decision
 
