@@ -1,22 +1,13 @@
-const CACHE_NAME = "hwtv-draw-v0-0-2";
-const APP_SHELL = [
-  "./",
-  "./index.html",
-  "./styles.css",
-  "./app.js",
-  "./manifest.webmanifest",
-  "./icon.svg"
-];
+const CACHE_NAME = "hwtv-draw-v0-0-2-r2";
 
-self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
+self.addEventListener("install", () => {
   self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))
+      Promise.all(keys.filter((key) => key.startsWith("hwtv-draw-") && key !== CACHE_NAME).map((key) => caches.delete(key)))
     )
   );
   self.clients.claim();
@@ -26,13 +17,19 @@ self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") {
     return;
   }
-  event.respondWith(
-    caches.match(event.request).then((cached) =>
-      cached || fetch(event.request).then((response) => {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
-        return response;
-      })
-    )
-  );
+  event.respondWith((async () => {
+    try {
+      const response = await fetch(event.request);
+      if (response.ok && new URL(event.request.url).origin === self.location.origin) {
+        await (await caches.open(CACHE_NAME)).put(event.request, response.clone());
+      }
+      return response;
+    } catch (error) {
+      const cached = await caches.match(event.request);
+      if (cached) {
+        return cached;
+      }
+      return caches.match("./");
+    }
+  })());
 });
