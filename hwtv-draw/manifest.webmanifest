@@ -1,0 +1,10 @@
+{
+  "name": "HWTV-DRAW",
+  "short_name": "HWTV-DRAW",
+  "description": "A touch-first pixel-art workspace.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#111218",
+  "theme_color": "#17191f",
+  "icons": []
+}
