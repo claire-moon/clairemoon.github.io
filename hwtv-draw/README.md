@@ -4,7 +4,7 @@ HWTV-DRAW is an independently implemented, touch-first pixel-art editor designed
 
 ## Live foundation
 
-Open https://clairemoon.github.io/hwtv-draw/ after this directory is published from the Pages branch.
+Open https://claire-moon.github.io/clairemoon.github.io/hwtv-draw/.
 
 ## Current working slice
 
