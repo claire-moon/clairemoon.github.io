@@ -1,4 +1,4 @@
-const CACHE_NAME = "hwtv-draw-v2";
+const CACHE_NAME = "hwtv-draw-v0-0-2";
 const APP_SHELL = [
   "./",
   "./index.html",
