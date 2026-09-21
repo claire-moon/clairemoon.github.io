@@ -1,11 +1,11 @@
 {
   "name": "HWTV-DRAW",
   "short_name": "HWTV-DRAW",
-  "description": "A touch-first pixel-art workspace.",
+  "description": "An Android-first pixel animation workspace with touch gestures and frame tools.",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#111218",
-  "theme_color": "#17191f",
+  "background_color": "#121318",
+  "theme_color": "#121318",
   "icons": [
     {
       "src": "icon.svg",
